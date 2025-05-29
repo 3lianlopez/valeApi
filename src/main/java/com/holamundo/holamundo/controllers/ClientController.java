@@ -11,11 +11,17 @@ import org.springframework.web.util.UriComponentsBuilder;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
+
+// Falta agregar documentacion javadoc
+
 @RestController
 @RequestMapping("/api/clientes")
 public class ClientController {
 
-    private final ClientService clientService;
+  
+    @Autowired
+    private ClientService clientService; //Convertir a interface y lo que esta actual cambiarlo a un archivo de implementacion
+
 
     //simulacion de una base de datos en memoria
     private final Map<UUID, ClientDTO> clients = new ConcurrentHashMap<>();
@@ -24,7 +30,9 @@ public class ClientController {
         this.clientService = clientService;
     }
 
-    /*@GetMapping
+    /*@GetMapping//adicionar identificador al get dado que si se requiere otro get no se puede hacer porque se esta usando el mismo endpoint
+    //@RequestMapping(value = "/clientes",method = RequestMethod.GET)
+    
     public ResponseEntity<Map<String,Object>> obtenerPersonas(){
         Map<String,Object> responseBody = new HashMap<>();
         List<ClientDTO> clientes = new ArrayList<>();
@@ -36,7 +44,9 @@ public class ClientController {
         return new ResponseEntity<>(responseBody,HttpStatus.OK);
     }
 
-    @GetMapping("/{uuid}")
+    @GetMapping("/{uuid}")//adicionar identificador al get dado que si se requiere otro get no se puede hacer porque se esta usando el mismo endpoint
+    //@RequestMapping(value = "/clientes/{uuid}",method = RequestMethod.GET)
+    //eñl parametro de entrada deberia ser un Dto
     public ResponseEntity<Map<String,Object>> obtenerPorId(@PathVariable UUID uuid){
         Optional<ClientDTO> cliente = clientService.getClientById(uuid);
         Map<String,Object> responseBody = new HashMap<>();
@@ -54,11 +64,16 @@ public class ClientController {
     }*/
 
     @PostMapping
-    public ResponseEntity<Map<String,Object>> crearPersona(@RequestBody ClientDTO clienteNuevo, UriComponentsBuilder ucb){
+    //@RequestMapping(value = "/clientes",method = RequestMethod.POST)
+    //esta sobrando el parametro UriComponentsBuilder
+    public ResponseEntity<Map<String,Object>> crearPersona(@RequestBody ClientDTO clienteNuevo){
         clientService.createClient(clienteNuevo);
         
         Map<String,Object> responseBody = new HashMap<>();
 
+        //Construir URI del nuevo recurso
+        // esto para que?
+        HttpHeaders headers = new HttpHeaders();
         responseBody.put("body",clienteNuevo);
         responseBody.put("statusCode",HttpStatus.CREATED.value());
         responseBody.put("mensaje","MENTODO POST");
@@ -68,6 +83,10 @@ public class ClientController {
 
     /*
     @PutMapping("/{uuid}")
+    //@RequestMapping(value = "/clientes/{uuid}",method = RequestMethod.PUT)
+    //el parametro de entrada deberia ser un Dto
+    //EL METODO ES ACTUALIZAR CLIENTE NO PERSONA    
+    //@PathVariable UUID uuid,@RequestBody ClientDTO clienteActualizado esto no lo entiendo
     public ResponseEntity<Map<String,Object>> actualizarPersona(@PathVariable UUID uuid,@RequestBody ClientDTO clienteActualizado){
 
         Map<String,Object> responseBody = new HashMap<>();
@@ -82,7 +101,12 @@ public class ClientController {
     }
 
     @DeleteMapping("/{uuid}")
+    //@RequestMapping(value = "/clientes/{uuid}",method = RequestMethod.DELETE)
+    //el parametro de entrada deberia ser un Dto
     public ResponseEntity<Map<String,Object>> eliminarPersona(@PathVariable UUID uuid){
+        //el controlador no debe de tener logica de negocio
+        //el servicio debe de tener la logica de negocio
+
         Map<String,Object> responseBody = new HashMap<>();
         Optional<ClientDTO> cliente = clientService.getClientById(uuid);
         if(cliente.isPresent()){

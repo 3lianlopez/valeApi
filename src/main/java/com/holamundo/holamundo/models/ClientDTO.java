@@ -2,13 +2,16 @@ package com.holamundo.holamundo.models;
 
 import java.util.UUID;
 
+//implementar Lombok
+//@Data
+//@AllArgsConstructor
 public class ClientDTO {
 
     private UUID uuid;
-    private String nombres;
-    private String apellidos;
-    private String tDoc;
-    private String doc;
+    private String nombres; 
+    private String apellidos; 
+    private String tDoc; //este atributo debe ser tipoDocumento
+    private String doc; // este atributo debe ser documento
     private String direccion;
 
     public ClientDTO(UUID uuid, String nombres, String apellidos, String tDoc, String doc, String direccion) {
