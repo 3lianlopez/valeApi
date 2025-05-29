@@ -1,30 +1,26 @@
 package com.holamundo.holamundo.services;
 
 import com.holamundo.holamundo.models.ClientDTO;
-import com.holamundo.holamundo.repository.ClientRepository;
-import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
 
-@Service
-public class ClientService {
-    private final ClientRepository clientRepository;
+ public interface ClientService {
 
-    public ClientService(ClientRepository clientRepository) {
-        this.clientRepository = clientRepository;
-    }
+     void createClient(ClientDTO client);
 
+    
     //este metodo deberia detornar un objetode respuesta.
-    public void createClient(ClientDTO client){
+    void createClient(ClientDTO client){
         clientRepository.createClient(client);
     }
+      
+    /*List<ClientDTO> findAllClients();
+    
+     Optional<ClientDTO> getClientById(UUID id);
 
-    public List<ClientDTO> getClient(){
-        return clientRepository.findAll();
-    }
+     void updateClientById(UUID uuid, ClientDTO client);
 
+     void deleteClient(UUID id);
+   
     //este metodo deberia retornar un objeto de respuesta.
     public Optional<ClientDTO> getClientById(UUID id){
         return clientRepository.findById(id);
@@ -38,5 +34,6 @@ public class ClientService {
     //este metodo deberia retornar un objeto de respuesta.
     public void deleteClient(UUID id){
         clientRepository.deleteById(id);
-    }
+    }*/
 }
+

@@ -3,13 +3,11 @@ package com.holamundo.holamundo.controllers;
 import com.holamundo.holamundo.models.ClientDTO;
 import com.holamundo.holamundo.services.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import java.net.URI;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -20,6 +18,7 @@ import java.util.concurrent.ConcurrentHashMap;
 @RequestMapping("/api/clientes")
 public class ClientController {
 
+  
     @Autowired
     private ClientService clientService; //Convertir a interface y lo que esta actual cambiarlo a un archivo de implementacion
 
@@ -27,17 +26,17 @@ public class ClientController {
     //simulacion de una base de datos en memoria
     private final Map<UUID, ClientDTO> clients = new ConcurrentHashMap<>();
 
-    public ClientController() {
-        // TODO document why this constructor is empty
+    public ClientController(ClientService clientService) {
+        this.clientService = clientService;
     }
 
-
-    @GetMapping//adicionar identificador al get dado que si se requiere otro get no se puede hacer porque se esta usando el mismo endpoint
+    /*@GetMapping//adicionar identificador al get dado que si se requiere otro get no se puede hacer porque se esta usando el mismo endpoint
     //@RequestMapping(value = "/clientes",method = RequestMethod.GET)
+    
     public ResponseEntity<Map<String,Object>> obtenerPersonas(){
         Map<String,Object> responseBody = new HashMap<>();
         List<ClientDTO> clientes = new ArrayList<>();
-        clientes = clientService.getClient();
+        clientes = clientService.findAllClients();
         responseBody.put("body",clientes);
         responseBody.put("statusCode",HttpStatus.OK.value());
         responseBody.put("mensaje","Se obtiene información por el metodo GET");
@@ -62,22 +61,19 @@ public class ClientController {
             responseBody.put("mensaje","No es encontro nada por el uuid");
             return new ResponseEntity<>(responseBody,HttpStatus.NOT_FOUND);
         }
-    }
+    }*/
 
     @PostMapping
     //@RequestMapping(value = "/clientes",method = RequestMethod.POST)
     //esta sobrando el parametro UriComponentsBuilder
-    public ResponseEntity<Map<String,Object>> crearPersona(@RequestBody ClientDTO clienteNuevo, UriComponentsBuilder ucb){
+    public ResponseEntity<Map<String,Object>> crearPersona(@RequestBody ClientDTO clienteNuevo){
         clientService.createClient(clienteNuevo);
         
         Map<String,Object> responseBody = new HashMap<>();
 
         //Construir URI del nuevo recurso
         // esto para que?
-        URI location = ucb.path("api/clientes/{uuid}").buildAndExpand(clienteNuevo.getUuid()).toUri();
         HttpHeaders headers = new HttpHeaders();
-        headers.setLocation(location);
-
         responseBody.put("body",clienteNuevo);
         responseBody.put("statusCode",HttpStatus.CREATED.value());
         responseBody.put("mensaje","MENTODO POST");
@@ -85,6 +81,7 @@ public class ClientController {
         return new ResponseEntity<>(responseBody,HttpStatus.CREATED);
     }
 
+    /*
     @PutMapping("/{uuid}")
     //@RequestMapping(value = "/clientes/{uuid}",method = RequestMethod.PUT)
     //el parametro de entrada deberia ser un Dto
@@ -125,7 +122,7 @@ public class ClientController {
             responseBody.put("mensaje","METODO DELETE");
             return new ResponseEntity<>(responseBody,HttpStatus.NOT_FOUND);
         }
-    }
+    }*/
 
 
 
