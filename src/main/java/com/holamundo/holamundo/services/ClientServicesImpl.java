@@ -1,20 +1,45 @@
 package com.holamundo.holamundo.services;
 
 import com.holamundo.holamundo.models.ClientDTO;
+import com.holamundo.holamundo.repository.ClientRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
 
-public interface ClientServicesImp {
+@Service
+public class ClientServicesImpl implements ClientService {
 
-    public void createClient(ClientDTO client);
+    private static final Logger log = LoggerFactory.getLogger(ClientServicesImpl.class);
+    private final ClientRepository clientRepository;
 
-    public List<ClientDTO> getClient();
 
-    public Optional<ClientDTO> getClientById(UUID id);
+    public ClientServicesImpl(ClientRepository clientRepository) {
+        this.clientRepository = clientRepository;
+    }
 
-    public void updateClientById(UUID uuid, ClientDTO client);
+    public void createClient(ClientDTO client){
+        log.info("Creando nuevo cliente: {}", client.getDoc());
+        clientRepository.createClient(client);
 
-    public void deleteClient(UUID id);
+    }
+
+    /*public List<ClientDTO> findAllClients(){
+        return clientRepository.findAllClients();
+    }
+
+    @Override
+    public Optional<ClientDTO> getClientById(UUID id) {
+        return Optional.empty();
+    }
+
+    @Override
+    public void updateClientById(UUID uuid, ClientDTO client) {
+
+    }
+
+    @Override
+    public void deleteClient(UUID id) {
+
+    }*/
 }

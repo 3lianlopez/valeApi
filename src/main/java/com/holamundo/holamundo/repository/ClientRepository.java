@@ -5,7 +5,6 @@ import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 @Repository
@@ -20,7 +19,7 @@ public class ClientRepository {
         return client;
     }
 
-    public List<ClientDTO> findAll(){
+    /*public List<ClientDTO> findAllClients(){
         return clients;
     }
 
@@ -43,5 +42,5 @@ public class ClientRepository {
 
     public void deleteById(UUID id){
         clients.removeIf(ClientDTO -> ClientDTO.getUuid().equals(id));
-    }
+    }*/
 }
