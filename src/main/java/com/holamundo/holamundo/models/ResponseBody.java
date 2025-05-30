@@ -1,7 +1,6 @@
 package com.holamundo.holamundo.models;
 
 import java.time.Instant;
-import java.util.Map;
 
 public class ResponseBody {
     private ClientDTO data;

@@ -3,10 +3,7 @@ package com.holamundo.holamundo.controllers;
 import com.holamundo.holamundo.models.ClientDTO;
 import com.holamundo.holamundo.models.ResponseBody;
 import com.holamundo.holamundo.services.ClientService;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
