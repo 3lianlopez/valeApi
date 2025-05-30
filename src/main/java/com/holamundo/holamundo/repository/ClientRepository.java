@@ -19,28 +19,4 @@ public class ClientRepository {
         return client;
     }
 
-    /*public List<ClientDTO> findAllClients(){
-        return clients;
-    }
-
-    public Optional<ClientDTO> findById(UUID id){
-        return clients.stream().filter(client -> client.getUuid().equals(id)).findFirst();
-    }
-
-    public ClientDTO updateClient(UUID uuid, ClientDTO client){
-        Optional<ClientDTO> clientExist = findById(uuid);
-
-        if (clientExist.isPresent()){
-            deleteById(uuid);
-            client.setUuid(uuid);
-            clients.add(client);
-            return client;
-        }
-
-        return null;
-    }
-
-    public void deleteById(UUID id){
-        clients.removeIf(ClientDTO -> ClientDTO.getUuid().equals(id));
-    }*/
 }

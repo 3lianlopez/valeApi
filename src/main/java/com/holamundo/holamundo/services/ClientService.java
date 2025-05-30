@@ -1,18 +1,12 @@
 package com.holamundo.holamundo.services;
 
 import com.holamundo.holamundo.models.ClientDTO;
+import com.holamundo.holamundo.models.ResponseBody;
 
 
- public interface ClientService {
+public interface ClientService {
 
-     void createClient(ClientDTO client);
+     ResponseBody createClient(ClientDTO client);
 
-     /*List<ClientDTO> findAllClients();
-
-     Optional<ClientDTO> getClientById(UUID id);
-
-     void updateClientById(UUID uuid, ClientDTO client);
-
-     void deleteClient(UUID id);*/
 }
 

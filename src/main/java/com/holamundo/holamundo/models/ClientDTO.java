@@ -2,24 +2,27 @@ package com.holamundo.holamundo.models;
 
 import java.util.UUID;
 
+
 public class ClientDTO {
 
     private UUID uuid;
     private String nombres;
     private String apellidos;
-    private String tDoc;
-    private String doc;
+    private String tipoDocumento;
+    private String documento;
     private String direccion;
 
-    public ClientDTO(UUID uuid, String nombres, String apellidos, String tDoc, String doc, String direccion) {
+    // Constructores
+    public ClientDTO(UUID uuid, String nombres, String apellidos, String tipoDocumento, String documento, String direccion) {
         this.uuid = uuid;
         this.nombres = nombres;
         this.apellidos = apellidos;
-        this.tDoc = tDoc;
-        this.doc = doc;
+        this.tipoDocumento = tipoDocumento;
+        this.documento = documento;
         this.direccion = direccion;
     }
 
+    // Getters and Setters
     public UUID getUuid() {
         return uuid;
     }
@@ -44,20 +47,20 @@ public class ClientDTO {
         this.apellidos = apellidos;
     }
 
-    public String gettDoc() {
-        return tDoc;
+    public String getTipoDocumento() {
+        return tipoDocumento;
     }
 
-    public void settDoc(String tDoc) {
-        this.tDoc = tDoc;
+    public void setTipoDocumento(String tipoDocumento) {
+        this.tipoDocumento = tipoDocumento;
     }
 
-    public String getDoc() {
-        return doc;
+    public String getDocumento() {
+        return documento;
     }
 
-    public void setDoc(String doc) {
-        this.doc = doc;
+    public void setDocumento(String documento) {
+        this.documento = documento;
     }
 
     public String getDireccion() {
