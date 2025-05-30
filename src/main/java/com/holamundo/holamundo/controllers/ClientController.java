@@ -26,9 +26,4 @@ public class ClientController {
         return clientService.createClient(clienteNuevo);
     }
 
-
-
-
-
-
 }
