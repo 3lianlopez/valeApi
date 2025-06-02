@@ -1,10 +1,19 @@
 package com.holamundo.holamundo.models;
 
+import jakarta.validation.constraints.NotBlank;
+import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import java.util.UUID;
 
 
+@Getter
+@Setter
 public class ClientDTO {
 
+    // Getters and Setters
     private UUID uuid;
     private String nombres;
     private String apellidos;
@@ -12,6 +21,7 @@ public class ClientDTO {
     private String documento;
     private String direccion;
 
+    public ClientDTO(){}
     // Constructores
     public ClientDTO(UUID uuid, String nombres, String apellidos, String tipoDocumento, String documento, String direccion) {
         this.uuid = uuid;
@@ -22,52 +32,4 @@ public class ClientDTO {
         this.direccion = direccion;
     }
 
-    // Getters and Setters
-    public UUID getUuid() {
-        return uuid;
-    }
-
-    public void setUuid(UUID uuid) {
-        this.uuid = uuid;
-    }
-
-    public String getNombres() {
-        return nombres;
-    }
-
-    public void setNombres(String nombres) {
-        this.nombres = nombres;
-    }
-
-    public String getApellidos() {
-        return apellidos;
-    }
-
-    public void setApellidos(String apellidos) {
-        this.apellidos = apellidos;
-    }
-
-    public String getTipoDocumento() {
-        return tipoDocumento;
-    }
-
-    public void setTipoDocumento(String tipoDocumento) {
-        this.tipoDocumento = tipoDocumento;
-    }
-
-    public String getDocumento() {
-        return documento;
-    }
-
-    public void setDocumento(String documento) {
-        this.documento = documento;
-    }
-
-    public String getDireccion() {
-        return direccion;
-    }
-
-    public void setDireccion(String direccion) {
-        this.direccion = direccion;
-    }
 }
