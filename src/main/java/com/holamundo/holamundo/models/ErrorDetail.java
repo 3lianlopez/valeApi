@@ -1,5 +1,5 @@
 package com.holamundo.holamundo.models;
-
+/*
 public class ErrorDetail {
     private String code;
     private String message;
@@ -27,3 +27,4 @@ public class ErrorDetail {
         this.message = message;
     }
 }
+*/

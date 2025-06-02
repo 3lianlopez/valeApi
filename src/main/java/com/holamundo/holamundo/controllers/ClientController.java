@@ -1,13 +1,12 @@
 package com.holamundo.holamundo.controllers;
 
-import com.holamundo.holamundo.entities.ClientEntity;
 import com.holamundo.holamundo.models.ClientDTO;
-import com.holamundo.holamundo.models.ResponseBody;
-import com.holamundo.holamundo.repository.MapperClient;
 import com.holamundo.holamundo.services.ClientServicesImpl;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 
 @Slf4j
@@ -22,12 +21,17 @@ public class ClientController {
     }
 
     @RequestMapping(value = "/clientes",method = RequestMethod.POST)
-    public ResponseBody crearCliente(@RequestBody ClientDTO clienteNuevo)  {
+    public ResponseEntity<ClientDTO> crearCliente(@RequestBody ClientDTO clienteNuevo)  {
 
         log.info("CLIENTE NUEVO : "+clienteNuevo.toString());
-        ResponseBody responseBody = clientService.createClient(clienteNuevo);
+        return clientService.createClient(clienteNuevo);
+    }
 
-        return new ResponseBody(responseBody.getData(),null, HttpStatus.OK.value());
+    @RequestMapping(value = "/clientes",method = RequestMethod.GET)
+    public List<ClientDTO> listsClients()  {
+
+
+        return  clientService.getAllClients();
     }
 
 }

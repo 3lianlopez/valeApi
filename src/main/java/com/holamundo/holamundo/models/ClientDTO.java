@@ -1,16 +1,13 @@
 package com.holamundo.holamundo.models;
 
-import jakarta.validation.constraints.NotBlank;
-import lombok.Data;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.UUID;
 
 
 @Getter
 @Setter
+@Builder
 public class ClientDTO {
 
     // Getters and Setters

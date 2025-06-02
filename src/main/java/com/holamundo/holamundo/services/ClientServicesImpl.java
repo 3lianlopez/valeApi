@@ -2,8 +2,6 @@ package com.holamundo.holamundo.services;
 
 import com.holamundo.holamundo.entities.ClientEntity;
 import com.holamundo.holamundo.models.ClientDTO;
-import com.holamundo.holamundo.models.ErrorDetail;
-import com.holamundo.holamundo.models.ResponseBody;
 import com.holamundo.holamundo.repository.ClientRepository;
 import com.holamundo.holamundo.repository.MapperClient;
 import org.slf4j.Logger;
@@ -13,7 +11,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.repository.query.FluentQuery;
-import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -27,29 +25,49 @@ public class ClientServicesImpl implements ClientService {
 
     private static final Logger log = LoggerFactory.getLogger(ClientServicesImpl.class);
     private final ClientRepository clientRepository;
+    MapperClient mapperClient = new MapperClient();
 
 
     public ClientServicesImpl(ClientRepository clientRepository) {
         this.clientRepository = clientRepository;
     }
 
-    public ResponseBody createClient(ClientDTO client){
+    public ResponseEntity<ClientDTO> createClient(ClientDTO client){
         try {
         log.info("Creando nuevo cliente: {}", client);
 
-        MapperClient mapperClient = new MapperClient();
 
         ClientEntity clientEntity = mapperClient.dtoToEntity(client);
 
         ClientEntity clienteGuardado = clientRepository.save(clientEntity);
         ClientDTO clientDTO = mapperClient.entityToDto(clienteGuardado);
-        return new ResponseBody(clientDTO,null, HttpStatus.CREATED.value());
+        return ResponseEntity.ok(clientDTO);
         }catch (IllegalArgumentException e){
             log.info("Error: " + e);
-            return new ResponseBody(null,new ErrorDetail("VALIDATION_ERROR", e.getMessage()),HttpStatus.BAD_REQUEST.value());
+            return ResponseEntity.badRequest().build();
         }
 
     }
+
+    public List<ClientDTO> getAllClients(){
+        try {
+            return clientRepository.findAll().stream()
+                    .map(client -> new ClientDTO(
+                            client.getUuid(),
+                            client.getNombres(),
+                            client.getApellidos(),
+                            client.getTipoDocumento(),
+                            client.getDocumento(),
+                            client.getDireccion()))
+                    .toList();
+
+        }catch (Exception e){
+                   log.info(e.getMessage());
+           return null;
+        }
+    }
+
+
 
 
     @Override
